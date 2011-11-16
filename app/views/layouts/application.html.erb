@@ -41,7 +41,9 @@
         <div class="hero-unit">
           <h1>Wiki!!</h1>
           <p>Click here to create your first wiki.</p>
-          <p><a class="btn primary large">Create Wiki</a></p>
+          <p>
+          <%= link_to "Create Wiki", new_article_path, :class => "btn primary large" %>
+          </p>
         </div>
         <!-- Example row of columns -->
         <div class="row">
