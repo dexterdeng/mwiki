@@ -1,0 +1,50 @@
+!!!
+%head
+  %title= content_for?(:title) ? "Mwiki - "+ yield(:title) : "Mwiki"
+  %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}
+
+  <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+  <!--[if lt IE 9]>
+  = javascript_include_tag "http://html5shim.googlecode.com/svn/trunk/html5.js"
+  <![endif]-->
+
+  %link{ :rel=>"shortcut icon", :href=>"images/favicon.ico"}
+  %link{ :rel=>"apple-touch-icon", :href=>"images/apple-touch-icon.png"}
+  %link{ :rel=>"apple-touch-icon", :sizes=>"72x72", :href=>"images/apple-touch-icon-72x72.png"}
+  %link{ :rel=>"apple-touch-icon", :sizes=>"114x114", :href=>"images/apple-touch-icon-114x114.png"}
+
+  = stylesheet_link_tag  "bootstrap", "application"
+  = javascript_include_tag "application", '/javascripts/ckeditor/ckeditor.js'
+  = javascript_include_tag "http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"
+  = csrf_meta_tag
+  -#= render :partial=>'layouts/google'
+  -#= yield(:head)
+%body
+
+  = render "shared/top_bar"
+  .container-fluid
+    = render "shared/side_bar"
+    .content
+      -#= render(:partial=> 'layouts/app_navigation')
+      -# flash.each do |name, msg|
+        -#= content_tag :div, msg, :id => "flash_#{name}"
+
+      - if notice
+        .alert-message.info
+          = link_to "x", "#", :class => "close"
+          %p
+            %strong
+              = notice
+
+      - if alert
+        .alert-message.error
+          = link_to "x", "#", :class => "close"
+          %p
+            %strong
+              = alert
+
+
+      = yield
+
+    = render "shared/footer"
+
