@@ -1,17 +1,47 @@
-<%= form_for(@article) do |f| %>
-  <% if @article.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@article.errors.count, "error") %> prohibited this article from being saved:</h2>
+<div class="row">
+  <div class="span16">
+    <%= form_for(@article) do |f| %>
+      <% if @article.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@article.errors.count, "error") %> prohibited this article from being saved:</h2>
 
-      <ul>
-      <% @article.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+          <ul>
+            <% @article.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
 
-  <div class="actions">
-    <%= f.submit %>
+
+      <fieldset>
+        <legend>Add/Edit your wiki</legend>
+
+        <div class="clearfix ">
+          <label for="xlInput4">name</label>
+          <div class="input">
+            <%= f.text_field :name, :class => "xlarge", :size => 30 %>
+          </div>
+        </div><!-- /clearfix -->
+
+
+        <div class="clearfix">
+          <label for="textarea">Content</label>
+          <div class="input">
+            <%= f.cktext_area :content, :toolbar => "Full", :width => 800, :height => 400 %>
+            <span class="help-block">
+              Block of help text to describe the field above if need be.
+            </span>
+          </div>
+        </div><!-- /clearfix -->
+
+      </fieldset>
+
+      <div class="actions">
+        <%= f.submit "Save changes", :class => "btn primary"%>
+        &nbsp;<button type="reset" class="btn">Cancel</button>
+      </div>
+    <% end %>
   </div>
-<% end %>
+</div>
+

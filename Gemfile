@@ -9,6 +9,8 @@ gem 'mysql2'
 gem 'haml'
 gem 'devise'
 gem 'cancan'
+gem "carrierwave"
+gem "mini_magick"
 gem 'ckeditor'
 gem "bootstrap"
 gem 'acts-as-taggable-on', '~>2.1.0'
