@@ -16,6 +16,7 @@ gem "bootstrap"
 gem 'acts-as-taggable-on', '~>2.1.0'
 gem 'heroku'
 gem 'pg', :group => :production
+gem 'execjs'
 
 # Gems used only for assets and not required
 # in production environments by default.
