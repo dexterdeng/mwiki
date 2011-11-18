@@ -5,6 +5,7 @@
  *= require_self
  *= require_tree .
 */
+//= require bootstrap
 html body{
   padding-top: 60px;
 }
