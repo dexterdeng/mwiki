@@ -3,8 +3,10 @@
     .container-fluid
       =  link_to "Mwiki", root_path, :class => "brand"
       %ul.nav
-        %li.active
-          = link_to "Home", "#"
+        %li{:class => params[:controller] == "home"  ? "active" : ""}
+          = link_to "Home", root_path
+        %li{:class => params[:controller] == "articles"  ? "active" : ""}
+          = link_to "Wiki", articles_path
         %li
           = link_to "About", "#"
         %li
