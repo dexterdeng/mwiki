@@ -1,5 +1,13 @@
 Mwiki::Application.routes.draw do
-  resources :articles
+
+  post "versions/:id/revert" => "versions#revert", :as => "revert_version"
+
+  resources :articles do
+    member do
+      get 'history'
+      get 'revert'
+    end
+  end
 
   devise_for :users
 

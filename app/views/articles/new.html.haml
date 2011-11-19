@@ -1,0 +1,9 @@
+.wiki
+  %section{:id => "forms"}
+    %div.page-header
+      %h1
+        = "New Wiki"
+      = link_to 'Back', articles_path, :class => "title_link"
+    = render 'form'
+    = link_to 'Show', @article
+

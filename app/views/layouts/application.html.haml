@@ -28,21 +28,12 @@
       -#= render(:partial=> 'layouts/app_navigation')
       -# flash.each do |name, msg|
         -#= content_tag :div, msg, :id => "flash_#{name}"
-
-      - if notice
-        .alert-message.info
+      - flash.each do | name, msg|
+        %div{ :class => "alert-message  #{name}"}
           = link_to "x", "#", :class => "close"
           %p
             %strong
-              = notice
-
-      - if alert
-        .alert-message.error
-          = link_to "x", "#", :class => "close"
-          %p
-            %strong
-              = alert
-
+              = raw(msg)
 
       = yield
 

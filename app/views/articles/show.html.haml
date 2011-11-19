@@ -1,6 +1,9 @@
 .wiki
+  = render "articles/tab"
   .page-header
     %h1
+      = link_to "Previous", article_path(@article,  @version.previous.id), :class => :title_link if @article and @version
+      = link_to "Newer", article_path(@article, :v => @article.next_version.id) if !@article.live? and !@article.next_version.blank?
       = @article.name
   .row
     .span16

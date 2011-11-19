@@ -1,0 +1,22 @@
+%ul.pills
+
+  %li{ :class => "right #{'active' if params[:action] == 'showb'}" }
+    = link_to "Add to Favorite"
+
+  %li{ :class => "right #{'active' if params[:action] == 'history'}" }
+    = link_to "View history", history_article_path(@article)
+
+  %li{ :class => "right #{'active' if params[:action] == 'edit'}" }
+    = link_to "Edit", edit_article_path(@article)
+
+  %li.right
+  %li{ :class => "right #{'active' if params[:action] == 'show'}" }
+    = link_to "Read", @article
+
+
+
+
+  %li{ :class => " #{'active' if params[:controller] == "articles" }" }
+    = link_to "Article", "#"
+  %li{ :class => " #{'active' if params[:controller] != "articles" }" }
+    = link_to "Discussion", "#"

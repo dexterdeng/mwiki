@@ -15,6 +15,25 @@ class ArticlesController < ApplicationController
   # GET /articles/1
   # GET /articles/1.json
   def show
+    @article = Article.where(:id => params[:id]).first
+    redirect_to articles_path and return unless @article
+
+    if @article and params[:v]
+      @version = Version.find params[:v]
+      @article = @version.reify
+    end
+
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @article }
+    end
+  end
+
+
+  # GET /articles/1
+  # GET /articles/1.json
+  def history
     @article = Article.find(params[:id])
 
     respond_to do |format|
@@ -42,11 +61,11 @@ class ArticlesController < ApplicationController
   # POST /articles
   # POST /articles.json
   def create
-    @article = Article.new(params[:article])
+    @article = current_user.articles.build(params[:article])
 
     respond_to do |format|
       if @article.save
-        format.html { redirect_to @article, notice: 'Article was successfully created.' }
+        format.html { redirect_to @article, notice: "Article was successfully created. #{undo_link}" }
         format.json { render json: @article, status: :created, location: @article }
       else
         format.html { render action: "new" }
@@ -60,9 +79,11 @@ class ArticlesController < ApplicationController
   def update
     @article = Article.find(params[:id])
 
+
     respond_to do |format|
       if @article.update_attributes(params[:article])
-        format.html { redirect_to @article, notice: 'Article was successfully updated.' }
+        undo_link = view_context.link_to("undo", revert_version_path(@article.versions.last), :method => :post)
+        format.html { redirect_to @article, notice: "Article was successfully updated. #{undo_link}" }
         format.json { head :ok }
       else
         format.html { render action: "edit" }
@@ -78,8 +99,12 @@ class ArticlesController < ApplicationController
     @article.destroy
 
     respond_to do |format|
-      format.html { redirect_to articles_url }
+      format.html { redirect_to articles_url, :notice => "Successfully destroyed article. #{undo_link}" }
       format.json { head :ok }
     end
+  end
+
+  def undo_link
+     view_context.link_to("undo", revert_version_path(@article.versions.scoped.last), :method => :post)
   end
 end

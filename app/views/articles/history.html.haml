@@ -1,0 +1,40 @@
+.wiki
+  = render "articles/tab"
+  .page-header
+    %h1
+      = @article.name
+  .row
+    .span16
+      %table
+        %tr
+          %td Version
+          %td Name
+          %td Changed At
+          %td
+
+
+        %tr
+          %td
+            %span.label.default
+              Current
+          %td
+            = link_to @article, article_path(@article)
+          %td
+            = @article.updated_at
+          %td
+
+
+        - @article.versions.reverse.each do |v|
+        - art = v.reify
+          %tr
+            %td
+              %span{ :class => "label #{{'create' =>  'success', 'update' => 'warning', 'destroy' => 'important'}[v.event]  }" }
+                =  v.event
+            %td
+              = link_to art, article_path(art, :v => v.id) unless art.blank?
+            %td
+              = v.created_at
+            %td
+              = link_to "Revert", revert_version_path(v), :method => :post, :class => "btn danger" if v.event != "create"
+              = link_to "Undo", "#", :class => "btn danger" if v.event != "create"
+
